@@ -25,4 +25,4 @@ imgcache->getImage("geodesdk-artwork", /*similar to above*/);
 ---
 Now you might be wondering "then wtf is the difference between this and those bundled the similar thing in their mod".
 
-It is that the cache is **preserved** even after you close the game!
+It is that the cache is **preserved** even after you close the game! (except macos they do not have saveToFile defined)

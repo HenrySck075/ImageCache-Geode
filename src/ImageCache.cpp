@@ -53,8 +53,10 @@ void ImageCache::getImage(std::string keyOrUrl, std::map<std::string, std::strin
 }
 
 void ImageCache::addImage(std::string key, CCImage* image) {
-    image->saveToFile(filePath(key).string().c_str(), false);
-}
+    #ifndef GEODE_IS_MACOS image->saveToFile(filePath(key).string().c_str(), false);
+    #endif
+    imageDict[key] = image;
+};
 
 
 void ImageCache::_download(std::string url, std::map<std::string, std::string> headers, std::string key, ImageCallback cb) {
@@ -85,7 +87,9 @@ void ImageCache::_download(std::string url, std::map<std::string, std::string> h
                             log::warn("Failed to initialize image with URL of {} (key: {}). Result image will be empty.", url, key);
                             return;
                         };
-                        img->saveToFile(filePath(saveStr).string().c_str(),false);
+                        #ifndef GEODE_IS_MACOS img->saveToFile(filePath(saveStr).string().c_str(),false);
+                        #endif
+                        imageDict[key] = img;
                         cb(img, saveStr);
                         listeners.erase(lk);
                         delete l;
