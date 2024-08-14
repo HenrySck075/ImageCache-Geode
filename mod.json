@@ -29,5 +29,6 @@
 	"tags": ["developer","utility"],
 	"api": {
 		"include": ["include/*.hpp"]
-	}
+	},
+	"repository": "https://github.com/HenrySck075/ImageCache-Geode"
 }
