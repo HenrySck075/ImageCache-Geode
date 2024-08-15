@@ -1,7 +1,7 @@
 # ImageCache
 This is where she makes a mod.
 
-hey if any verifier is reading this can you reject the illucid release pls 🙏
+btw i might implement caching images made by other mods without depending on this but the issue is web requests does not tell you who issued the request
 
 # How to use
 Simply add this mod as a [dependencies](https://docs.geode-sdk.org/mods/dependencies), `#include <henrysck075.imgcache/include/ImageCache.hpp>` and you can now start saving/getting images like this:
