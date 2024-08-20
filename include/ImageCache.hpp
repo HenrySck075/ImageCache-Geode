@@ -18,6 +18,12 @@ using namespace geode::prelude;
     #define IMGC_DLL __attribute__((visibility("default")))
 #endif
 
+struct EImageFormat {
+    CCImage::EImageFormat real;
+
+    EImageFormat(CCImage::EImageFormat format = CCImage::kFmtUnKnown) : real(format) {};
+    operator CCImage::EImageFormat() {return real;};
+};
 
 class IMGC_DLL ImageCache {
 private:
@@ -31,6 +37,12 @@ private:
         auto j = saveDir / (base64_encode(keyOrUrl)+".png");
         return j;
     }
+
+    std::map<std::string, EImageFormat> m_imageFormatFromExtension = {
+        {"png", {CCImage::kFmtPng}},
+        {"jpg", {CCImage::kFmtJpg}},
+        {"jpeg", {CCImage::kFmtJpg}}
+    };
 public:
     ImageCache() : mod(Mod::get()), saveDir(mod->getSaveDir()) {
         log::info("Save directory: {}", saveDir);

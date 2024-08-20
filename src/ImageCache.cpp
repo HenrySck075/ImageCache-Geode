@@ -82,16 +82,25 @@ void ImageCache::_download(std::string url, std::map<std::string, std::string> h
         if (auto res = j->getValue()) {
             if (res->ok()) {
                 auto contentTypeHeader = res->header("Content-Type");
+                std::string ext = "";
+                if (auto delimPos = url.find_last_of('.') != std::string::npos) ext = url.substr(delimPos+1,url.size());
+                CCImage::EImageFormat imgFormat = m_imageFormatFromExtension[ext]; // you dont fucking supports everything else in the EImageFormat shithead
                 // if it doesnt define Content-Type then we'll just assume it's a valid image data
                 if (contentTypeHeader.has_value()) {
-                    if (!contentTypeHeader.value().starts_with("image/")) {
+                    std::string contentType = contentTypeHeader.value();
+                    if (imgFormat == CCImage::kFmtUnKnown) {
+                        if (auto delimPos = contentType.find_first_of('/') != std::string::npos) ext = contentType.substr(delimPos+1,contentType.size());
+                        imgFormat = m_imageFormatFromExtension[ext];
+                    }
+                    if (!contentType.starts_with("image/")) {
                         log::error("this is not an image dawg (its content type is {})", contentTypeHeader.value_or("application/octet-stream"));
                     }
                 }
-                std::thread([res,saveStr,this,lk,l,cb,url,key](){
+                std::thread([res,saveStr,this,lk,l,cb,url,key,imgFormat](){
                     auto d = res->data();
                     auto img = new CCImage();
-                    if (!img->initWithImageData(const_cast<uint8_t*>(d.data()), d.size())) {
+                    
+                    if (!img->initWithImageData(const_cast<uint8_t*>(d.data()), d.size(),imgFormat)) {
                         log::warn("Failed to initialize image with URL of {} (key: {}). Result image will be empty.", url, key);
                         return;
                     };
