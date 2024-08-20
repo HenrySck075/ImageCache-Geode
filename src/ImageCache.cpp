@@ -38,11 +38,13 @@ bool ImageCache::existsInCacheDir(std::string keyOrUrl) {
 void ImageCache::getImage(std::string keyOrUrl, std::map<std::string, std::string> headers, ImageCallback cb) {
     if (imageDict.contains(keyOrUrl)) {
         cb(imageDict[keyOrUrl], keyOrUrl);
+        return;
     };
 
     // check the function to see why
     if (existsInCacheDir(keyOrUrl)) {
         cb(imageDict[keyOrUrl], keyOrUrl);
+        return;
     }
 
     if (isUrl(keyOrUrl)) _download(keyOrUrl, headers, "", cb);
@@ -119,11 +121,13 @@ void ImageCache::download(std::string url, std::map<std::string, std::string> he
     auto keyOrUrl = key.empty()?url:key;
     if (imageDict.contains(keyOrUrl)) {
         cb(imageDict[keyOrUrl], keyOrUrl);
+        return;
     };
 
     // check the function to see why
     if (existsInCacheDir(keyOrUrl)) {
         cb(imageDict[keyOrUrl], keyOrUrl);
+        return;
     }
 
     log::info("Downloading {} (key: {}).", url, key.empty()?"undefined":key);
