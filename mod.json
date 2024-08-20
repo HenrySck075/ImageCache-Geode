@@ -1,34 +1,34 @@
 {
-	"geode": "3.4.0",
-	"gd": {
-		"win": "2.206",
-		"android": "2.206",
-		"mac": "2.206",
-		"ios": "2.206"
-	},
-	"id": "henrysck075.imagecache",
-	"name": "ImageCache",
-	"version": "v1.0.0",
-	"developer": "Henry Spheria",
-	"description": "",
-	"settings": {
+    "geode": "3.4.0",
+    "gd": {
+        "win": "2.206",
+        "android": "2.206",
+        "mac": "2.206",
+        "ios": "2.206"
+    },
+    "id": "henrysck075.imagecache",
+    "name": "ImageCache",
+    "version": "v1.0.0",
+    "developer": "Henry Spheria",
+    "description": "",
+    "settings": {
         "preload-cached": {
             "name": "Preload cached images",
             "description": "Increases loading time by actually doing that (not implemented)",
             "type": "bool",
             "default": false
         },
-		"expires": {
-			"name": "Cache expiration time",
-			"description": "Specify how long an image should be deleted (in days)",
-			"type": "int",
-			"default": 7,
-			"min": 1
-		}
+        "expires": {
+            "name": "Cache expiration time",
+            "description": "Specify how long an image should be deleted (in days)",
+            "type": "int",
+            "default": 7,
+            "min": 1
+        }
     },
-	"tags": ["developer","utility"],
-	"api": {
-		"include": ["include/*.hpp"]
-	},
-	"repository": "https://github.com/HenrySck075/ImageCache-Geode"
+    "tags": ["developer","utility"],
+    "api": {
+        "include": ["include/*.hpp"]
+    },
+    "repository": "https://github.com/HenrySck075/ImageCache-Geode"
 }

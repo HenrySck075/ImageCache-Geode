@@ -11,18 +11,18 @@ bool isUrl(std::string keyOrUrl) {
 }
 
 bool ImageCache::existsInCacheDir(std::string keyOrUrl) {
-    std::filesystem::path j = saveDir;
-    std::filesystem::path path = j.concat(base64_encode(keyOrUrl, true)+".png");
+    std::filesystem::path path = filePath(keyOrUrl);
     bool ret = std::filesystem::exists(path);
     bool _isUrl = isUrl(keyOrUrl);
     // Cache the image in memory so we dont have to do this again
     if (ret) {
-        auto tsDiff = std::chrono::duration_cast<std::chrono::days>(
+        #define durcast std::chrono::duration_cast<std::chrono::days>
+        auto tsDiff = 
             // last modified is more reasonable imo
-            std::chrono::system_clock::now().time_since_epoch()
+            durcast(std::chrono::system_clock::now().time_since_epoch())
             - 
-            std::filesystem::last_write_time(path).time_since_epoch() 
-        );
+            durcast(std::filesystem::last_write_time(path).time_since_epoch())
+        ;
         // cached image expires
         if (tsDiff.count()>=mod->getSettingValue<int64_t>("expires")) return false;
 
@@ -53,7 +53,8 @@ void ImageCache::getImage(std::string keyOrUrl, std::map<std::string, std::strin
 }
 
 void ImageCache::addImage(std::string key, CCImage* image) {
-    #ifndef GEODE_IS_MACOS image->saveToFile(filePath(key).string().c_str(), false);
+    #ifndef GEODE_IS_MACOS 
+        image->saveToFile(filePath(key).string().c_str(), false);
     #endif
     imageDict[key] = image;
 };
@@ -92,9 +93,10 @@ void ImageCache::_download(std::string url, std::map<std::string, std::string> h
                         log::warn("Failed to initialize image with URL of {} (key: {}). Result image will be empty.", url, key);
                         return;
                     };
-                    #ifndef GEODE_IS_MACOS img->saveToFile(filePath(saveStr).string().c_str(),false);
+                    #ifndef GEODE_IS_MACOS 
+                        img->saveToFile(filePath(saveStr).string().c_str(),false);
                     #endif
-                    imageDict[key] = img;
+                    imageDict[saveStr] = img;
                     cb(img, saveStr);
                     listeners.erase(lk);
                     delete l;

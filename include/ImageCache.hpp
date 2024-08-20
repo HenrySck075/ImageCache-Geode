@@ -28,7 +28,8 @@ private:
     std::map<std::pair<std::string, std::map<std::string, std::string>>, geode::EventListener<web::WebTask>*> listeners;
 
     std::filesystem::path filePath(std::string keyOrUrl) {
-        return saveDir / (base64_encode(keyOrUrl)+".png");
+        auto j = saveDir / (base64_encode(keyOrUrl)+".png");
+        return j;
     }
 public:
     ImageCache() : mod(Mod::get()), saveDir(mod->getSaveDir()) {
