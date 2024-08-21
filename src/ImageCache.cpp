@@ -107,11 +107,13 @@ void ImageCache::_download(std::string url, std::map<std::string, std::string> h
                     #ifndef GEODE_IS_MACOS 
                         img->saveToFile(filePath(saveStr).string().c_str(),false);
                     #endif
-                    imageDict[saveStr] = img;
-                    cb(img, saveStr);
-                    listeners.erase(lk);
-                    delete l;
-                    log::info("Downloading image {} complete!", url);
+                    geode::Loader::get()->queueInMainThread([this, saveStr,img,lk,l,url,cb](){
+                        imageDict[saveStr] = img;
+                        cb(img, saveStr);
+                        listeners.erase(lk);
+                        delete l;
+                        log::info("Downloading image {} complete!", url);
+                    });
                 }).detach();
             }
             else {
