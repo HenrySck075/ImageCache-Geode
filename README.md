@@ -1,7 +1,7 @@
 # ImageCache
 This is where she makes a mod.
 
-btw i might implement caching images made by other mods without depending on this but the issue is web requests does not tell you who issued the request
+btw i might implement caching images made by other mods that isnt depending on this
 
 # How to use
 [See demo here](https://youtu.be/H8r-xMHN25Y)
@@ -10,7 +10,7 @@ Simply add this mod as a [dependencies](https://docs.geode-sdk.org/mods/dependen
 ```cpp
 auto imgcache = ImageCache::instance();
 // download an image from the internet and give it a key
-// It's best to prefix the key with your mod id. If not, it will get the wrong image!
+// It's best to prefix the key with your mod id. If not, it might get the wrong image!
 imgcache->download(
     "https://i.pximg.net/img-original/img/2024/05/29/00/04/16/119141822_p0.png", // url
     {{"Upgrade-Insecure-Requests","1"}, {"X-User-Id", "firee"}}, // headers
