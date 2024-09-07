@@ -144,3 +144,13 @@ void ImageCache::download(std::string url, std::map<std::string, std::string> he
     log::info("Downloading {} (key: {}).", url, key.empty()?"undefined":key);
     _download(url, headers, key, cb);
 }
+
+ImageCache *ImageCache::instance() {
+  if (_instance == nullptr) {
+    _instance = new ImageCache();
+    _instance->mod = Mod::get();
+    _instance->saveDir = _instance->mod->getSaveDir();
+  }
+  return _instance;
+}
+

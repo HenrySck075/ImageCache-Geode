@@ -44,15 +44,10 @@ private:
         {"jpeg", {CCImage::kFmtJpg}}
     };
 public:
-    ImageCache() : mod(Mod::get()), saveDir(mod->getSaveDir()) {
-        log::info("Save directory: {}", saveDir);
-    };
-    static ImageCache* instance() {
-        if (_instance == nullptr) _instance = new ImageCache();
-        return _instance;
-    }
+  static ImageCache *instance();
 
-    using ImageCallback = geode::utils::MiniFunction<void(CCImage*, std::string keyOrUrl)>;
+  using ImageCallback =
+      geode::utils::MiniFunction<void(CCImage *, std::string keyOrUrl)>;
 private:
     /// @brief Get the image from the url.
     /// 
