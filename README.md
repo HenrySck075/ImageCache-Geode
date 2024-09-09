@@ -10,9 +10,9 @@ Simply add this mod as a [dependencies](https://docs.geode-sdk.org/mods/dependen
 ```cpp
 auto imgcache = ImageCache::instance();
 // download an image from the internet and give it a key
-// It's best to prefix the key with your mod id. If not, it might get the wrong image!
+// It's best to prefix the key with your mod ID to prevent possible overlap!
 imgcache->download(
-    "https://i.pximg.net/img-original/img/2024/05/29/00/04/16/119141822_p0.png", // url
+    "https://i.pximg.net/img-original/img/2023/01/01/15/27/17/104128429_p0.png", // url
     {{"Upgrade-Insecure-Requests","1"}, {"X-User-Id", "firee"}}, // headers
     "geodesdk-artwork"_spr, // key
     [](CCImage* img, std::string keyOrUrl) {
@@ -28,4 +28,4 @@ imgcache->getImage("geodesdk-artwork", /*similar to above*/);
 ---
 Now you might be wondering "then wtf is the difference between this and those bundled the similar thing in their mod".
 
-It is that the cache is **preserved** even after you close the game! (except macos they do not have saveToFile defined)
+It is that the cache is **preserved** even after you close the game! (except macos they do not have saveToFile defined) (will add when i make a macos vm) (which is probably not in a near future)
