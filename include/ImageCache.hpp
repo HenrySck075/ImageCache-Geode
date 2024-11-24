@@ -2,6 +2,7 @@
 
 #include <Geode/Geode.hpp>
 #include <Geode/utils/web.hpp>
+#include <functional>
 using namespace geode::prelude;
 
 #include "b64.hpp"
@@ -47,7 +48,7 @@ public:
   static ImageCache *instance();
 
   using ImageCallback =
-      geode::utils::MiniFunction<void(CCImage *, std::string keyOrUrl)>;
+      std::function<void(CCImage *, std::string keyOrUrl)>;
 private:
     /// @brief Get the image from the url.
     /// 
